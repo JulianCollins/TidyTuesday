@@ -49,7 +49,7 @@ ggsave("tt20190702.png", width = 24, height = 20, units = "cm", dpi = 150)
 
 
 
-#### rejeced charts - grouping without franchise doesn't really make sense #########
+########## rejeced charts - grouping without franchise doesn't really make sense #########
 
 # manual colour palette 
 cols <- c("Book sales" = "#47761E", "Box Office" = "#FED985", "Home Video/Entertainment" = "#F09E71", "TV" = "#61B5CB", 
