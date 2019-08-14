@@ -1,4 +1,4 @@
-## 2019-07-02 Media Franchises
+## 2019-07-02 - Week 27 - Media Franchises 
 
 library(tidyverse)
 
@@ -43,7 +43,7 @@ media_franchises %>% filter(annualised_revenue > 1) %>%
   ylab("\nTotal annualised revenue, US$bn\n") +
   theme(plot.title = element_text(size = 18), plot.subtitle = element_text(size = 14), axis.title.x = element_text(size = 14), axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12)) +
   theme(plot.background = element_rect(fill = "#FFFBF9"))
-ggsave("tt20190702.png", width = 24, height = 20, units = "cm", dpi = 150)
+ggsave("tt2019_w27.png", width = 24, height = 20, units = "cm", dpi = 150)
 
 
 
