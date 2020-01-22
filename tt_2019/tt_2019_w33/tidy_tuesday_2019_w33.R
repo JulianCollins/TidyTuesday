@@ -22,7 +22,7 @@ waffle_C3 <- emperors %>% filter(C == "3rd Century AD") %>% waffle_iron(aes_d(gr
 p1 <- ggplot(waffle_C1, aes(x, y, fill = group)) + 
   geom_waffle() + 
   coord_equal() + 
-  scale_fill_viridis_d(option = "B", alpha = 0.8) + 
+  scale_fill_viridis_d(option = "E", alpha = 0.8) + 
   theme_waffle() +
   theme(legend.position = "none") +
   labs(title = "", x = "", y = "1st Century") +
@@ -31,7 +31,7 @@ p1 <- ggplot(waffle_C1, aes(x, y, fill = group)) +
 p2 <- ggplot(waffle_C2, aes(x, y, fill = group)) + 
   geom_waffle() + 
   coord_equal() + 
-  scale_fill_viridis_d(option = "B", alpha = 0.8) + 
+  scale_fill_viridis_d(option = "E", alpha = 0.8) + 
   theme_waffle() +
   theme(legend.position = "none") +
   labs(title = "", x = "", y = "2nd Century") +
@@ -40,7 +40,7 @@ p2 <- ggplot(waffle_C2, aes(x, y, fill = group)) +
 p3 <- ggplot(waffle_C3, aes(x, y, fill = group)) + 
   geom_waffle() + 
   coord_equal() + 
-  scale_fill_viridis_d(option = "B", alpha = 0.8) + 
+  scale_fill_viridis_d(option = "E", alpha = 0.8) + 
   theme_waffle() +
   theme(legend.title = element_blank()) +
   labs(title = "", x = "", y = "3rd Century") +
@@ -54,7 +54,8 @@ p3 <- ggplot(waffle_C3, aes(x, y, fill = group)) +
   plot_annotation(title = "\"Not that I loved Caesar less, but that I loved Rome more\"",
                   subtitle = "  Roman Emperors, cause of death by century",
                   theme = theme(
-                                plot.title = element_text(size = 32, family = "serif", face = "italic"),
-                                plot.subtitle = element_text(size = 24, family = "serif")
+                                plot.title = element_text(size = 24, family = "serif", face = "italic"),
+                                plot.subtitle = element_text(size = 20, family = "serif")
                                 )
                   )
+ggsave("tt_w33.png", width = 24, height = 16, units = "cm")
