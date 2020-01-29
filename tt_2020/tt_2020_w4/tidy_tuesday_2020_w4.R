@@ -1,5 +1,5 @@
 # TidyTuesday 2020: week 4: Spotify data
-
+ 
 library(tidyverse)
 library(patchwork)
 
@@ -62,6 +62,6 @@ spotify_patch + plot_annotation(
   theme = theme(plot.title = element_text(size = 24),
                 plot.subtitle = element_text(size = 20))
   )
-
+ 
 ggsave("tt2020_w4.png", width = 40, height = 20, units = "cm", dpi = 150)
 
