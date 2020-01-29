@@ -63,5 +63,5 @@ spotify_patch + plot_annotation(
                 plot.subtitle = element_text(size = 20))
   )
 
-ggsave("tt2020_w4.png", width = 35, height = 20, units = "cm", dpi = 150)
+ggsave("tt2020_w4.png", width = 40, height = 20, units = "cm", dpi = 150)
 
