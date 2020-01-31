@@ -35,7 +35,7 @@ theme_linedraw() +
   labs(title = "Tree location: all species")
 
 
-# add species count variabler
+# add species count variable
 sf_trees <- sf_trees %>% group_by(species_common) %>% mutate(species_common_cnt = n()) %>% ungroup()
 
 # faceted maps of commonly found species
@@ -50,7 +50,7 @@ b <- sf_trees %>% filter(species_common!= '') %>% filter(species_common_cnt > 50
   theme(strip.text = element_text(size = 7))
 
 
-# # add site_info count variabler
+# # add site_info count variable
 # sf_trees <- sf_trees %>% group_by(site_info) %>% mutate(site_info_cnt = n()) %>% ungroup()
 # 
 # c <- sf_trees %>% filter(latitude > 37.7 & latitude < 38.0) %>% filter(site_info != ":") %>% filter(site_info_cnt > 900) %>% 
@@ -62,7 +62,7 @@ b <- sf_trees %>% filter(species_common!= '') %>% filter(species_common_cnt > 50
 #   facet_wrap(~ site_info)
 # 
 # 
-# # add legal_sttus count variabler
+# # add legal_status count variable
 # sf_trees <- sf_trees %>% group_by(legal_status) %>% mutate(legal_status_cnt = n()) %>% ungroup()
 # 
 # d <- sf_trees %>% filter(latitude > 37.7 & latitude < 38.0) %>% filter(!is.na(legal_status)) %>% 
@@ -74,7 +74,7 @@ b <- sf_trees %>% filter(species_common!= '') %>% filter(species_common_cnt > 50
 #   facet_wrap(~ legal_status)
 
 
-
+# density plot of tree planting year by species
 e <- sf_trees %>% filter(species_common!= '') %>% filter(species_common_cnt > 5000) %>% 
   ggplot(aes(year(date), fill = species_common)) +
   geom_density(alpha = 0.3) +
@@ -94,18 +94,9 @@ sf_trees_patch +
   title = "The Trees of San Francisco",
   theme = theme(plot.title = element_text(size = 24))
 ) 
-#+  plot_layout(ncol = 1)
 
 # export
 ggsave("tt2020_w5.png", width = 30, height = 25, units = "cm", dpi = 300)
 
 
-# , widths = c(1, 1)
-# # to be continued...
-# 
-# # add marginal plot to main map
-# aa <- ggMarginal(a, type = "histogram", alpha = 0.1, fill= "darkgreen")
-# 
-# # cowplot
-# plot_grid(aa, b, align = "hv")
 
