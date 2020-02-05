@@ -2,10 +2,9 @@
 
 library(tidyverse)
 library(ggmap)
-library(ggExtra)
 library(lubridate)
 library(patchwork)
-library(cowplot)
+
 
 
 # data download
