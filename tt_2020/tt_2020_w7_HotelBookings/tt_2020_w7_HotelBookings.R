@@ -48,7 +48,7 @@ hotels_2016 <- hotels_2016 %>% rename(month = arrival_date_month)
 # create empty grid of all combinations
 hotels_2016_expanded <- expand(hotels_2016, country, month, hotel, hol_length)
 
-# join to expanded df to data
+# join expanded df to data
 hotels_2016_expanded <- hotels_2016_expanded %>% left_join(hotels_2016, by = c("country", "month", "hotel", "hol_length"))
 
 # replace NA with zero
@@ -123,9 +123,13 @@ hol_fortnight <- hotels_2016_expanded %>% filter(hol_length == "Fortnight") %>%
 # assemble plots
 hol_short + hol_week + hol_fortnight + plot_layout(nrow = 1) + plot_annotation(
   title = "A Holiday for all Seasons",
-  subtitle = "Who goes where? And when? \nHoliday length by month for two hotels in Portugal. \nCountry of residence of visitors comprising 2/3 of these hotel's customers.",
+  subtitle = "Who goes where? And when? \nHoliday length by month for two hotels in Portugal. \nCountry of residence of visitors comprising 2/3 of these hotels' customers.",
   caption = "data restricted to 2016 only - other years incomplete",
   theme = theme(plot.title = element_text(size = 22, family = "Skia"), plot.subtitle = element_text(size = 16, family = "Skia"), plot.caption = element_text(size = 10, family = "Skia"))
 )
 
 ggsave("tt2020_w7_HotelBookings.png", width = 30, height = 20, units = "cm", dpi = 300)
+
+
+
+
