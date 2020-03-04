@@ -1,7 +1,6 @@
 # Week 9 - Measles Immunization USA
 
 library(tidyverse)
-library(ggplot2)
 library(ggrepel)
 library(patchwork)
 library(ggtext)
@@ -39,8 +38,8 @@ plot_states <- measles %>% filter(!is.na(sch_size)) %>%
   theme_minimal() +
   scale_fill_viridis_c(option = 'A') +
   coord_equal() +
-  labs(title = "MMR vaccinations rates by US State and school size", x = "", y = "School size", fill = "MMR vaccination rate: %") +
-  theme(axis.text.x = element_text(angle = -90, hjust = 1, face = 'bold')) +
+  labs(title = "MMR vaccinations rates by US State and school size", x = "", y = "School enrollment size", fill = "MMR vaccination rate: %") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 1, face = 'bold', size = 10)) +
   theme(legend.position = 'top')
 
 
@@ -64,13 +63,15 @@ plot_ark_city <- measles %>% filter(state == "Arkansas") %>% filter(enroll > 200
   ggplot(aes(enroll, mmr)) +
   geom_point(alpha = 0.5) +
   geom_point(data = measles_ark_low, aes(colour = city), alpha = 0.5, show.legend = T) +
-  guides(colour = guide_legend(nrow = 2)) +
-  geom_text_repel(data = measles_ark_low,
+  guides(colour = guide_legend(nrow = 3)) +
+  geom_label_repel(data = measles_ark_low,
                   aes(label = name, colour = city),
+                  size = 2.5,
+                  family = 'Courier',
+                  fill = 'grey70',
                   show.legend = F) +
   scale_colour_viridis_d(option = 'A', name = "") +
   theme_minimal() +
-  #theme(plot.background = element_rect(fill = 'grey90')) +
   labs(title = "Arkansas: school enrollment 200+", x = "School enrollment size", y = "MMR vaccination rate: %") +
   theme(legend.position = 'bottom')
 
@@ -94,25 +95,62 @@ plot_cali_city <- measles %>% filter(state == "California") %>% filter(enroll > 
   ggplot(aes(enroll, mmr)) +
   geom_point(alpha = 0.5) +
   geom_point(data = measles_cali_low, aes(colour = city), alpha = 0.5) +
-  geom_text_repel(data = measles_cali_low,
+  geom_label_repel(data = measles_cali_low,
                   aes(label = name, colour = city),
+                  size = 2.5,
+                  family = 'Courier',
+                  fill = "grey70",
                   show.legend = F) +
   scale_colour_viridis_d(option = 'A', name = "") +
   theme_minimal() +
-  #theme(plot.background = element_rect(fill = 'grey90')) +
   labs(title = "California: school enrollment 200+", x = "", y = "") +
   theme(legend.position = 'bottom')
 
 
 # text layer
-plot_text <- ggplot() +
-  theme_void() +
-  annotate(geom = 'text', label = "For those states with data for school MMR vaccination rates, Arkansas and California \nshow relatively low rates of vaccination within larger schools.", x = 0.1, y = 0.8, hjust = 0)
+df <- data.frame(
+  label = "The **tile map [left]** shows states with data for school MMR vaccination rates. Arkansas and California
+          show relatively low rates of vaccination within larger schools.
+          The two **scatter plots [below]** examine the variation in vaccination rates within these two states. 
+          A small number of schools are leading to the lower overall % figures.
+          In **Arkansas** there is a fairly wide spread of vaccination rates and a larger cohort of schools with more than 200 pupils (*n = 460*), 
+          whilst within **California** most schools in this size bracket (*n = 55*) have vaccination rates at or close to 100%, with a small group
+          of schools having rates below 50%.",
+  x = 0,
+  y = 1,
+  hjust = 0,
+  vjust = 1,
+  orientation = "upright",
+  color = "darkorchid4",
+  fill = "cornsilk",
+  size = 3.25
+)
+
+plot_text <- ggplot(df) +
+  aes(
+    x, y, label = label, color = color, fill = fill, family = "Courier", size = size,
+    hjust = hjust, vjust = vjust,
+    orientation = orientation
+  ) +
+  geom_textbox(width = unit(0.95, "npc")) +
+  geom_point(color = "darkorchid4", size = 2) +
+  scale_discrete_identity(aesthetics = c("color", "fill", "orientation", "size")) +
+  xlim(0, 1) + ylim(0, 1) +
+  theme_void()
+
+
 
 # patchwork layout
 (plot_states | plot_text) /
-  (plot_ark_city | plot_cali_city)
+  (plot_ark_city | plot_cali_city) +
+plot_annotation(title = "MMR vaccination rates in US schools, by State*", 
+                caption = "*states without recorded MMR vaccination rates are exluded",
+                theme = theme(plot.title = element_text(size = 20), 
+                plot.caption = element_text(size = 12, face = 'italic'))) &
+  theme(text = element_text(family = 'Courier')
+  )
 
+ggsave("tt2020_w9_MeaslesUSschools.png", width = 35, height = 25, units = "cm", dpi = 300)
 
 
 
