@@ -30,7 +30,8 @@ chart_line <- tdf_winners %>% filter(tour_year >= 1950) %>%
   expand_limits(y = c(30, 45)) +
   scale_x_discrete(breaks = seq(1950, 2010, 10), labels = seq(1950, 2010, 10)) +
   theme_light() +
-  labs(x = "", y = "Average Tour speed (km/hr) of winner") 
+  labs(x = "", y = "Average Tour speed (km/hr) of winner") +
+  theme(axis.title.y = element_text(size = 9))
   
 
 
@@ -53,16 +54,17 @@ chart_bar <- tdf_stages %>% group_by(tour_year, TypeNew) %>% filter(tour_year >=
   theme_light() +
   theme(legend.position = "bottom") +
   theme(legend.title = element_blank()) +
-  labs(x = "", y = "Length of Tour by Stage type percentage")
+  labs(x = "", y = "Length of Tour by Stage type percentage") +
+  theme(axis.title.y = element_text(size = 9))
 
 
 # patchwork
 chart_line / chart_bar +
-  plot_annotation(title = "Tour de France", subtitle = "Tour winners' speed in latest decade is 20% higher than in the 1950s \ndespite mountain stages forming a higher proportion of Tour length",
+  plot_annotation(title = "Tour de France - Yellow Jersey average tour speed, 1950 - current", subtitle = "Tour winners' speed in latest decade is 20% higher than in the 1950s \ndespite mountain stages forming a higher proportion of Tour length",
                   theme = theme(plot.title = element_text(size = 20), plot.subtitle = element_text(size = 14))) &
   theme(text = element_text('Righteous'))
 
-
+ggsave("tt_2020_w15_TourdeFrance.png", width = 25, height = 20, units = 'cm', dpi = 300)
 
 ####################################
 
